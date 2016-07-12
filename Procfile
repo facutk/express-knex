@@ -1,2 +1,1 @@
-﻿$stdout.sync = true
-web: node server.js
+web: node index.js
