@@ -7,5 +7,6 @@ module.exports = {
             password: 'matrix',
             database: 'todo'
         }
-    }
+    },
+    heroku: process.env.NODE_ENV;
 }
