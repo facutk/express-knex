@@ -8,6 +8,11 @@ app.get('/', function(req, res){
     res.send('hello node again');
 });
 
+app.get('/env', function(req, res){
+    console.log(process.env.NODE_ENV);
+    res.send('env');
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
