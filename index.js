@@ -3,8 +3,9 @@ var app = express();
 
 app.set('port', (process.env.PORT || 3000));
 
-app.get('/', function(request, response) {
-  response.send('hello node!');
+app.get('/', function(req, res){
+    console.log('request received');
+    res.send('hello world');
 });
 
 app.listen(app.get('port'), function() {
