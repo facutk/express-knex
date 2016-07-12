@@ -1,14 +1,11 @@
 var express = require('express');
 var app = express();
+var db = require('./db.js');
 
 app.set('port', (process.env.PORT || 3000));
 
 app.get('/', function(req, res){
-    res.send('hello node again');
-});
-
-app.get('/db', function(req, res){
-    res.send(process.env.DATABASE_URL);
+    res.send('hello pg');
 });
 
 app.listen(app.get('port'), function() {

@@ -8,5 +8,5 @@ module.exports = {
             database: 'todo'
         }
     },
-    heroku: process.env.NODE_ENV;
+    production: process.env.DATABASE_URL;
 }
