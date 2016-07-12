@@ -8,5 +8,9 @@ module.exports = {
             database: 'todo'
         }
     },
-    production: process.env.DATABASE_URL;
+    production: {
+        client: 'pg',
+        connection: process.env.DATABASE_URL,
+        searchPath: 'knex,public'
+    }
 }
