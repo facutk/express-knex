@@ -5,7 +5,7 @@ app.set('port', (process.env.PORT || 3000));
 
 app.get('/', function(req, res){
     console.log('request received');
-    res.send('env:'+process.env.NODE_ENV);
+    res.send('hello node again');
 });
 
 app.listen(app.get('port'), function() {
