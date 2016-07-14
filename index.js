@@ -12,55 +12,74 @@ app.get('/', function(req, res){
     res.send('hello pg');
 });
 
-app.post('/', function(req, res){
-    console.log(req.body);
-    res.send('ok');
+app.get('/count', function(req, res) {
+
+    db.select()
+    .from('counter')
+    .then(function(rows) {
+        res.status(200)
+           .json(rows);
+    });
+
 });
 
 app.get('/count/:uid', function(req, res) {
 
     var uid = parseInt(req.params.uid);
 
-    db.select('count')
+    db.select()
     .from('counter')
     .where('uid', uid)
     .first()
     .then(function(row) {
-        var count = 0;
-        if (row) count = row.count;
-        res.status(200)
-           .json({
-               count: count
-           });
+
+        if (row) {
+            res.status(200)
+            .json(row);
+        } else {
+            res.status(404)
+               .json({
+                   'message': 'not found'
+               });
+       }
     });
 
 });
 
-app.get('/count_inc', function(req, res) {
+app.post('/count', function(req, res) {
 
-    db.select('count')
+    db.insert({
+        count: 1
+    })
+    .into('counter')
+    .then(function (row){
+        res.status(200)
+           .json( row );
+    });
+
+});
+
+app.put('/count/:uid', function(req, res) {
+
+    var uid = parseInt(req.params.uid);
+    db.select()
     .from('counter')
-    .where('uid', 1)
+    .where('uid', uid)
     .first()
     .then(function(row) {
 
         if (row) {
             db.update({count: row.count + 1})
             .from('counter')
-            .where('uid', 1)
-            .returning('count')
+            .where('uid', uid)
             .then(function (row){
                 res.json( row );
             });
         } else {
-
-            db.insert({count: 1})
-            .into('counter')
-            .returning('count')
-            .then(function (row){
-                res.send( row.count );
-            });
-
+            res.status(404)
+               .json({
+                   'message': 'not found'
+               });
         }
 
     });
@@ -74,8 +93,7 @@ app.delete('/count/:uid', function(req, res) {
     .from('counter')
     .where('uid', uid)
     .then(function(row) {
-        var count = 0;
-        res.json( count );
+        res.status(200).json( row );
     });
 
 });
