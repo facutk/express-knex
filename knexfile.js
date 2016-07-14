@@ -1,12 +1,8 @@
 module.exports = {
     development: {
         client: 'pg',
-        connection: {
-            host: 'localhost',
-            user: 'facutk',
-            password: 'matrix',
-            database: 'todo'
-        }
+        connection: process.env.DATABASE_URL,
+        searchPath: 'knex,public'
     },
     production: {
         client: 'pg',
