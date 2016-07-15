@@ -1,12 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors());
+app.set('port', (process.env.PORT || 3000));
 
 var db = require('./db.js');
 
-app.set('port', (process.env.PORT || 3000));
+
 
 app.get('/', function(req, res){
     res.send('hello pg');
@@ -52,9 +56,11 @@ app.post('/count', function(req, res) {
         count: 1
     })
     .into('counter')
-    .then(function (row){
+    .returning('uid')
+    .then(function (rows) {
+        console.log(rows);
         res.status(200)
-           .json( row );
+           .json( rows[0] );
     });
 
 });
@@ -66,14 +72,14 @@ app.put('/count/:uid', function(req, res) {
     .from('counter')
     .where('uid', uid)
     .first()
-    .then(function(row) {
+    .then(function(rows) {
 
-        if (row) {
-            db.update({count: row.count + 1})
+        if (rows) {
+            db.update({count: rows.count + 1})
             .from('counter')
             .where('uid', uid)
-            .then(function (row){
-                res.json( row );
+            .then(function (rows){
+                res.json( rows );
             });
         } else {
             res.status(404)
@@ -92,8 +98,8 @@ app.delete('/count/:uid', function(req, res) {
     db.del()
     .from('counter')
     .where('uid', uid)
-    .then(function(row) {
-        res.status(200).json( row );
+    .then(function(rows) {
+        res.status(200).json( rows[0] );
     });
 
 });
