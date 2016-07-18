@@ -1,4 +1,5 @@
 var express = require('express');
+var router = express.Router();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
@@ -9,9 +10,8 @@ app.use(cors());
 app.use(express.static('public'));
 app.set('port', (process.env.PORT || 3000));
 
-var count = require('./routes/count.js');
-app.use('/count', count);
-
+var count = router.use('/count',require('./routes/count.js') );
+app.use('/api/', count);
 
 app.get('/', function(req, res){
     res.send('hello pg');
@@ -20,7 +20,6 @@ app.get('/', function(req, res){
 app.use('*',function(req,res){
   res.status(404).send('404');
 });
-
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
