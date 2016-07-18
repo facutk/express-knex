@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 var TimeTag = React.createClass({
     getInitialState: function() {
         return {
-            greeting: 'hello rrreact'
+            greeting: 'hello rrreactt'
         };
     },
     componentDidMount: function() {
