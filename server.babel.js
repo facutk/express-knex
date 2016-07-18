@@ -17,6 +17,12 @@ app.get('/', function(req, res){
     res.send('hello pg');
 });
 
+app.get('/api/date', function(req, res){
+    res.json({
+        timestamp: Date.now()
+    });
+});
+
 app.use('*',function(req,res){
   res.status(404).send('404');
 });
