@@ -22,7 +22,16 @@ var TimeTag = React.createClass({
     }
 });
 
+class NavBar extends React.Component {
+  render() {
+    return <h1>Timestamp</h1>
+  }
+}
+
 ReactDOM.render(
-  <TimeTag />,
-  document.getElementById('root')
+    <div>
+        <NavBar />
+        <TimeTag />
+    </div>,
+    document.getElementById('root')
 );
