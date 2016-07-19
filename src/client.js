@@ -44,9 +44,20 @@ class TimeTag extends React.Component {
     }
 }
 
+class CountItem extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+    render() {
+        return (
+            <li>{this.props.children}</li>
+        );
+    }
+}
+
 class CounterList extends React.Component {
-    constructor(props, contexts) {
-        super(props, contexts);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             counts: [
                 {
@@ -67,7 +78,7 @@ class CounterList extends React.Component {
 
     render() {
         var counts = this.state.counts.map( count =>
-            <li key={count.key}>{count.value}</li>
+            <CountItem key={count.key}>{count.value}</CountItem>
         );
         return (
             <ul>
