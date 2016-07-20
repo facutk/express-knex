@@ -1,6 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+let data = [
+    {
+        'id': 1,
+        'title': 'Yellow Pail',
+        'description': 'On-demand sand castle construction expertise.',
+        'votes' : 3
+    },
+    {
+        'id': 2,
+        'title': 'Chromebook',
+        'description': 'Sweet computer',
+        'votes' : 8
+    }
+]
+
 class NavBar extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -97,12 +112,55 @@ class CounterList extends React.Component {
     }
 }
 
+class Product extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        return (
+            <div>
+                <h2>{this.props.title}</h2>
+                <ul>
+                    <li>id: {this.props.id}</li>
+                    <li>description: {this.props.description}</li>
+                    <li>votes: {this.props.votes}</li>
+                </ul>
+            </div>
+        );
+    }
+}
+
+class ProductList extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        const products = data.map( product => {
+            return (
+                <Product
+                    id={product.id}
+                    title={product.title}
+                    description={product.description}
+                    votes={product.votes}
+                />
+            );
+        });
+        return (
+            <div>
+                {products}
+            </div>
+        );
+    }
+}
 
 ReactDOM.render(
     <div>
         <NavBar />
         <TimeTag />
         <CounterList />
+        <ProductList />
     </div>,
     document.getElementById('root')
 );
