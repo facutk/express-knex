@@ -7,12 +7,12 @@
   },
   "main": "index.js",
   "scripts": {
-      "webpack-dev-server": "webpack-dev-server --hot --inline --history-api-fallback ",
-      "express-server": "nodemon server.js",
-      "dev": "concurrent --kill-others \"npm run webpack-dev-server\" \"npm run express-server\"",
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node server.js",
-      "postinstall": "webpack -p"
+    "webpack-dev-server": "webpack-dev-server --hot --inline --history-api-fallback ",
+    "express-server": "nodemon server.js",
+    "dev": "concurrent --kill-others \"npm run webpack-dev-server\" \"npm run express-server\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "postinstall": "webpack -p"
   },
   "dependencies": {
     "babel-loader": "^6.2.4",
@@ -23,6 +23,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "babel-runtime": "^6.9.2",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
     "express": "4.13.3",
