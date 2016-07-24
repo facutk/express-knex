@@ -193,18 +193,46 @@ class ProductList extends React.Component {
 class ToggleableTimerForm extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            isOpen: false
+        }
+        this._handleFormOpen = this._handleFormOpen.bind(this);
+        this._handleFormClose = this._handleFormClose.bind(this);
+        this._handleFormSubmit = this._handleFormSubmit.bind(this);
+    }
+
+    _handleFormOpen() {
+        this.setState({
+            isOpen: true
+        });
+    }
+
+    _handleFormClose() {
+        this.setState({
+            isOpen: false
+        });
+    }
+
+    _handleFormSubmit(timer) {
+        this.props.onFormSubmit(timer);
+        this.setState({
+            isOpen: false
+        });
     }
 
     render() {
-        if (this.props.isOpen) {
+        if (this.state.isOpen) {
             return (
-                <TimerForm />
+                <TimerForm
+                    onFormSubmit={this._handleFormSubmit}
+                    onFormClose={this._handleFormClose}
+                />
             );
         } else {
             return (
                 <div className='ui basic content center aligned segment'>
-                    <button className='ui basic button icon'>
-                        [+]
+                    <button className='ui basic button icon' onClick={this._handleFormOpen}>
+                        <i className='plus icon'></i>
                     </button>
                 </div>
             );
@@ -232,8 +260,12 @@ class Timer extends React.Component {
                         <h2>{elapsedString}</h2>
                     </div>
                     <div className='extra content'>
-                        <span className='right floated edit icon'>[edit]</span>
-                        <span className='right floated trash icon'>[delete]</span>
+                        <span className='right floated edit icon'>
+                            <i className='edit icon'></i>
+                        </span>
+                        <span className='right floated trash icon'>
+                            <i className='trash icon'></i>
+                        </span>
                     </div>
                 </div>
                 <div className='ui bottom attached blue basic button'>
@@ -247,27 +279,36 @@ class Timer extends React.Component {
 class TimerForm extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this._handleSubmit = this._handleSubmit.bind(this);
+    }
+
+    _handleSubmit() {
+        this.props.onFormSubmit({
+            id: this.props.id,
+            title: this.refs.title.value,
+            project: this.refs.project.value
+        });
     }
 
     render() {
-        const submitText = this.props.title ? 'Update' : 'Create';
+        const submitText = this.props.id ? 'Update' : 'Create';
         return (
             <div className='ui centered card'>
                 <div className='content'>
                     <div className='ui form'>
                         <div className='field'>
                             <label>Title</label>
-                            <input type='text' defaultValue={this.props.title} />
+                            <input type='text' ref='title' defaultValue={this.props.title} />
                         </div>
                         <div className='field'>
                             <label>Project</label>
-                            <input type='text' defaultValue={this.props.Project} />
+                            <input type='text' ref='project' defaultValue={this.props.Project} />
                         </div>
                         <div className='ui two bottom attached buttons'>
-                            <button className='ui basic blue button' type='text'>
+                            <button className='ui basic blue button' onClick={this._handleSubmit}>
                                 {submitText}
                             </button>
-                            <button className='ui basic red button' type='text'>
+                            <button className='ui basic red button' onClick={this.props.onFormClose}>
                                 Cancel
                             </button>
                         </div>
@@ -281,12 +322,16 @@ class TimerForm extends React.Component {
 class EditableTimer extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            editFormOpen: false
+        }
     }
 
     render() {
-        if (this.props.editFormOpen) {
+        if (this.state.editFormOpen) {
             return (
                 <TimerForm
+                    id={this.props.id}
                     title={this.props.title}
                     project={this.props.project}
                 />
@@ -294,6 +339,7 @@ class EditableTimer extends React.Component {
         } else {
             return (
                 <Timer
+                    id={this.props.id}
                     title={this.props.title}
                     project={this.props.project}
                     elapsed={this.props.elapsed}
@@ -351,6 +397,23 @@ class TimersDashboard extends React.Component {
                 }
             ]
         }
+
+        this._handleCreateFormSubmit = this._handleCreateFormSubmit.bind(this);
+    }
+
+    _handleCreateFormSubmit(timer) {
+        this._createTimer(timer);
+    }
+
+    _createTimer(timer) {
+        this.setState({
+            timers: this.state.timers.concat({
+                title: timer.title || 'Timer',
+                project: timer.project || 'Project',
+                id: this.state.timers.length + 1,
+                elapsed: 0,
+            })
+        });
     }
 
     render() {
@@ -361,7 +424,7 @@ class TimersDashboard extends React.Component {
                         timers={this.state.timers}
                     />
                     <ToggleableTimerForm
-                        isOpen={true}
+                        onFormSubmit={this._handleCreateFormSubmit}
                     />
                 </div>
             </div>
