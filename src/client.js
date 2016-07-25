@@ -551,13 +551,23 @@ class TimersDashboard extends React.Component {
     }
 
     _createTimer(timer) {
+        const t = {
+            title: timer.title || 'Timer',
+            project: timer.project || 'Project',
+            id: uuid.v4(),
+            elapsed: 0,
+        };
+
         this.setState({
-            timers: this.state.timers.concat({
-                title: timer.title || 'Timer',
-                project: timer.project || 'Project',
-                id: this.state.timers.length + 1,
-                elapsed: 0,
-            })
+            timers: this.state.timers.concat(t)
+        });
+
+        fetch('api/timers', {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(t)
         });
     }
 
@@ -574,6 +584,14 @@ class TimersDashboard extends React.Component {
                 }
             })
         });
+
+        fetch('api/timers', {
+            method: 'put',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(attrs)
+        });
     }
 
     deleteTimer(timerId) {
@@ -581,6 +599,16 @@ class TimersDashboard extends React.Component {
             timers: this.state.timers.filter(
                 (timer => timer.id !== timerId )
             )
+        });
+
+        fetch('api/timers', {
+            method: 'delete',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                id: timerId
+            })
         });
     }
 

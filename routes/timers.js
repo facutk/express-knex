@@ -103,10 +103,27 @@ router.delete('/:uid', function(req, res) {
 });
 */
 
+router.post('/', (req, res) => {
+    fs.readFile(DATA_FILE, (err, data) => {
+        const timers = JSON.parse(data);
+        const newTimer = {
+            title: req.body.title,
+            project: req.body.project,
+            id: req.body.id,
+            elapsed: 0,
+            runningSince: null,
+        };
+        timers.push(newTimer);
+        fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+            res.setHeader('Cache-Control', 'no-cache');
+            res.json(timers);
+        });
+    });
+});
+
 router.post('/start', function(req, res) {
     fs.readFile(DATA_FILE, (err, data) => {
         const timers = JSON.parse(data);
-        console.log(req.body);
         timers.forEach((timer) => {
             if (timer.id === req.body.id) {
                 timer.runningSince = req.body.start;

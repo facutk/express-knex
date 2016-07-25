@@ -14,8 +14,8 @@
         "runningSince": null
     },
     {
-        "title": "Do nothing",
-        "project": "x",
+        "title": "Do nothing!",
+        "project": "none",
         "id": "e72d0728-d995-4443-bf9c-170c48ecb7d4",
         "elapsed": 16075,
         "runningSince": 1469484366300
