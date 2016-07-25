@@ -13,6 +13,9 @@ app.set('port', (process.env.PORT || 3000));
 var count = router.use('/count',require('./routes/count.js') );
 app.use('/api/', count);
 
+var timers = router.use('/timers',require('./routes/timers.js') );
+app.use('/api/', timers);
+
 app.get('/', function(req, res){
     res.send('hello pg');
 });

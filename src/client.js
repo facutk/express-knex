@@ -45,11 +45,20 @@ class TimeTag extends React.Component {
     }
 
     componentDidMount () {
-        this.serverRequest = $.get('api/date', function (result) {
+        /*
+        $.get('api/date', function (result) {
             this.setState({
                 greeting: result.timestamp
             });
         }.bind(this));
+        */
+        fetch('api/date')
+            .then(result=>result.json())
+            .then(json=>{
+                this.setState({
+                    greeting: json.timestamp
+                });
+            });
     }
 
     render() {
@@ -495,22 +504,7 @@ class TimersDashboard extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            timers: [
-                {
-                    title: 'Practice squat',
-                    project: 'Gym Chores',
-                    id: 1,
-                    elapsed: 5456099,
-                    runningSince: Date.now()
-                },
-                {
-                    title: 'Bake squash',
-                    project: 'Kitchen Chores',
-                    id: 2,
-                    elapsed: 1273998,
-                    runningSince: null
-                }
-            ]
+            timers: []
         }
 
         this._handleCreateFormSubmit = this._handleCreateFormSubmit.bind(this);
@@ -518,6 +512,22 @@ class TimersDashboard extends React.Component {
         this.handleTrashClick = this.handleTrashClick.bind(this);
         this.handleStartClick = this.handleStartClick.bind(this);
         this.handleStopClick = this.handleStopClick.bind(this);
+        this.loadTimersFromServer = this.loadTimersFromServer.bind(this);
+    }
+
+    componentDidMount () {
+        this.loadTimersFromServer();
+        setInterval(this.loadTimersFromServer, 5000);
+    }
+
+    loadTimersFromServer() {
+        fetch('api/timers')
+        .then(result=>result.json())
+        .then(data=>{
+            this.setState({
+                timers: data
+            });
+        });
     }
 
     _handleCreateFormSubmit(timer) {
@@ -587,6 +597,17 @@ class TimersDashboard extends React.Component {
                 }
             })
         });
+
+        fetch('api/timers/start', {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                id: timerId,
+                start: now
+            })
+        });
     }
 
     stopTimer(timerId) {
@@ -602,6 +623,17 @@ class TimersDashboard extends React.Component {
                 } else {
                     return timer;
                 }
+            })
+        });
+
+        fetch('api/timers/stop', {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                id: timerId,
+                start: now
             })
         });
     }
