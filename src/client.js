@@ -291,8 +291,37 @@ class Timer extends React.Component {
         this.props.onStopClick(this.props.id);
     }
 
+    renderElapsedString(elapsed, runningSince) {
+        let totalElapsed = elapsed;
+        if (runningSince) {
+            totalElapsed += Date.now() - runningSince;
+        }
+        return this.millisecondsToHuman(totalElapsed);
+    }
+
+    millisecondsToHuman(ms) {
+        const seconds = Math.floor((ms / 1000) % 60);
+        const minutes = Math.floor((ms / 1000 / 60) % 60);
+        const hours = Math.floor(ms / 1000 / 60 / 60);
+
+        const humanized = [
+            this.pad(hours.toString(), 2),
+            this.pad(minutes.toString(), 2),
+            this.pad(seconds.toString(), 2),
+        ].join(':');
+
+        return humanized;
+    }
+
+    pad(numberString, size) {
+        let padded = numberString;
+        while (padded.length < size) padded = '0' + padded;
+        return padded;
+    }
+
     render() {
-        const elapsedString = (this.props.runningSince) ? this.props.elapsed + Date.now() - this.props.runningSince: this.props.elapsed;
+        const elapsedString = this.renderElapsedString(this.props.elapsed, this.props.runningSince);
+
         return (
             <div className='ui centered card'>
                 <div className='content'>
