@@ -45,6 +45,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^2.2.0"
+    "concurrently": "^2.2.0",
+    "html-webpack-plugin": "^2.22.0"
   }
 }
