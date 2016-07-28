@@ -27,13 +27,15 @@
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
     "express": "4.13.3",
+    "html-webpack-plugin": "^2.22.0",
     "knex": "^0.11.7",
     "node-uuid": "^1.4.7",
     "pg": "^6.0.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "webpack": "^1.13.1",
-    "html-webpack-plugin": "^2.22.0"
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "webpack": "^1.13.1"
   },
   "repository": {
     "type": "git",
