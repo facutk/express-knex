@@ -4,7 +4,7 @@
         "project": "House Chores",
         "elapsed": null,
         "id": "0a4a79cb-b06d-4cb1-883d-549a1e3b66d7",
-        "runningSince": 1469484338359
+        "runningSince": null
     },
     {
         "title": "Clear paper jam",
@@ -17,7 +17,14 @@
         "title": "Do nothing!",
         "project": "none",
         "id": "e72d0728-d995-4443-bf9c-170c48ecb7d4",
-        "elapsed": 16075,
-        "runningSince": 1469484366300
+        "elapsed": null,
+        "runningSince": 1469711252526
+    },
+    {
+        "title": "asda",
+        "project": "aaa",
+        "id": "d010c8d2-b093-439c-9f11-565c1685f136",
+        "elapsed": 0,
+        "runningSince": 1469717465423
     }
 ]

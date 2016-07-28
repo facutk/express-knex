@@ -1,40 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { v4 } from 'node-uuid';
 
-let data = [
-    {
-        'id': 1,
-        'title': 'Yellow Pail',
-        'description': 'On-demand sand castle construction expertise.',
-        'votes' : 3
-    },
-    {
-        'id': 2,
-        'title': 'Chromebook',
-        'description': 'Sweet computer',
-        'votes' : 8
-    }
-]
-
-class NavBar extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            name: 'The',
-            password: 'Team'
-        };
-    }
-
-    componentDidMount() {
-        this.setState({
-            password: '. team .'
-        });
-    }
-
-    render() {
-        return <h1>{this.state.name} {this.state.password}</h1>
-    }
-}
+import Navbar from './Navbar.jsx';
 
 class TimeTag extends React.Component {
     constructor(props, context){
@@ -45,13 +13,6 @@ class TimeTag extends React.Component {
     }
 
     componentDidMount () {
-        /*
-        $.get('api/date', function (result) {
-            this.setState({
-                greeting: result.timestamp
-            });
-        }.bind(this));
-        */
         fetch('api/date')
             .then(result=>result.json())
             .then(json=>{
@@ -120,6 +81,21 @@ class CounterList extends React.Component {
         );
     }
 }
+
+let data = [
+    {
+        'id': 1,
+        'title': 'Yellow Pail',
+        'description': 'On-demand sand castle construction expertise.',
+        'votes' : 3
+    },
+    {
+        'id': 2,
+        'title': 'Chromebook',
+        'description': 'Sweet computer',
+        'votes' : 8
+    }
+]
 
 class Product extends React.Component {
     constructor(props, context) {
@@ -554,7 +530,7 @@ class TimersDashboard extends React.Component {
         const t = {
             title: timer.title || 'Timer',
             project: timer.project || 'Project',
-            id: uuid.v4(),
+            id: v4(),
             elapsed: 0,
         };
 
@@ -688,7 +664,7 @@ class TimersDashboard extends React.Component {
 
 ReactDOM.render(
     <div>
-        <NavBar />
+        <Navbar />
         <hr />
         <TimeTag />
         <hr />

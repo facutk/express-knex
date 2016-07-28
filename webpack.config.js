@@ -1,20 +1,21 @@
 module.exports = {
-    entry: './src/client.js',
+    entry: './src/client.jsx',
     output: {
         path: './public',
         filename: 'bundle.js'
     },
+    devtool: 'source-map',
     module: {
         loaders: [
             {
-                test: /\.js?$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.json']
+        extensions: ['', '.js', '.jsx']
     },
     devServer: {
         host: 'localhost',
