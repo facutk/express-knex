@@ -6,7 +6,6 @@ module.exports = {
         path: './dist',
         filename: 'bundle.[hash].js'
     },
-    devtool: 'source-map',
     module: {
         loaders: [
             {
@@ -18,14 +17,6 @@ module.exports = {
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
-    },
-    devServer: {
-        host: 'localhost',
-        port: 8080,
-        contentBase: __dirname + '/dist/',
-        proxy: {
-            '/api/*' : 'http://localhost:3000',
-        }
     },
     plugins: [
         new HtmlWebpackPlugin({

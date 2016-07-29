@@ -12,7 +12,7 @@
     "dev": "concurrent --kill-others \"npm run webpack-dev-server\" \"npm run express-server\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "postinstall": "webpack -p"
+    "postinstall": "webpack -p --config webpack.production.js"
   },
   "dependencies": {
     "babel-loader": "^6.2.4",
