@@ -33,7 +33,6 @@ module.exports = {
             }
         }),
         new AppCachePlugin({
-            network: null,
             settings: ['prefer-online'],
             output: 'manifest.appcache'
         })
