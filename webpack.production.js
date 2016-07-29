@@ -1,5 +1,6 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+var AppCachePlugin = require('appcache-webpack-plugin');
 module.exports = {
     entry: './src/client.jsx',
     output: {
@@ -30,6 +31,11 @@ module.exports = {
             'process.env': {
             'NODE_ENV': JSON.stringify('production')
             }
+        }),
+        new AppCachePlugin({
+            network: null,
+            settings: ['prefer-online'],
+            output: 'manifest.appcache'
         })
     ]
 };

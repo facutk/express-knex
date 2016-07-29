@@ -1,10 +1,9 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: './src/client.jsx',
     output: {
         path: './dist',
-        filename: 'bundle.[hash].js'
+        filename: 'bundle.js'
     },
     devtool: 'source-map',
     module: {
@@ -30,10 +29,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './src/index.template.ejs',
-            minify: {
-                "minifyCSS": true
-            }
+            template: './src/index.template.ejs'
         })
     ]
 };
