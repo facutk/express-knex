@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-mdl';
 
 let data = [
     {
@@ -32,6 +33,7 @@ class Product extends React.Component {
                     <li>id: {this.props.id}</li>
                     <li>description: {this.props.description}</li>
                     <li>votes: {this.props.votes} <a href='#' onClick={this._handleUpVote.bind(this)}>[+]</a></li>
+                    <li><Button raised accent ripple>Button</Button></li>
                 </ul>
             </div>
         );

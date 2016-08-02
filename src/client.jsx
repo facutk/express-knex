@@ -3,6 +3,9 @@ import { render } from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
+import 'react-mdl/extra/material.css';
+import 'react-mdl/extra/material.js';
+
 import Navbar from './lessons/Navbar.jsx';
 import TimersDashboard from './lessons/TimersDashboard.jsx';
 import TimeTag from './lessons/TimeTag.jsx';
@@ -22,7 +25,6 @@ const reducer = combineReducers({
 });
 
 let store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
-
 
 render(
     <Provider store={store}>
